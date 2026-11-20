@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>MATHVERSE — 2026-yilning matematika platformasi</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
+<link rel="stylesheet" href="./style.css"></head><body>
+<nav><a class="logo" href="#hero">∑ MATHVERSE</a><ul id="menu"><li><a href="#solver">AI yechuvchi</a></li><li><a href="#lab">Laboratoriya</a></li><li><a href="#explorer">3D</a></li><li><a href="#minds">Olimlar</a></li><li><a href="#challenges">Musobaqalar</a></li><li><a href="#formulas">Formulalar</a></li><li><a href="#stats">Statistika</a></li><li><a href="#about">Haqida</a></li></ul><button id="burger" onclick="menu.classList.toggle('open')">☰</button></nav>
+
+<section id="hero"><canvas id="hc"></canvas>
+<span class="tag">Matematika · yangicha talqin · 2026</span><h1 class="grad">MATHVERSE</h1>
+<p>Tenglamalar jonlanadigan immersiv olam. Matematikani real vaqtda yeching, chizing, kashf eting va u bilan oʻynang.</p>
+<div class="row"><a class="btn pri" href="#solver">AI yechuvchini ishga tushirish</a><a class="btn" href="#explorer">3D da kashf eting</a><button onclick="formulaBurst()">✨ Meni hayratga sol</button></div>
+<div class="stats"><div><b data-n="2048">0</b><span>Bugun yechilgan masalalar</span></div><div><b data-n="120">0</b><span>Formulalar</span></div><div><b data-n="5">0</b><span>Interaktiv laboratoriyalar</span></div></div></section>
+
+<section id="solver"><span class="tag">01 · AI matematik yechuvchi</span><h2>Xohlagan narsani soʻrang. <span class="grad">Bosqichma-bosqich yechim oling.</span></h2><p class="sub">Sinab koʻring: hosila x^3*sin(x), yech x^2-5x+6=0, integral x^2 0 dan 3 gacha, soddalashtir (x+1)^2-x^2 yoki istalgan ifoda.</p>
+<div class="grid two"><div class="glass"><div class="row"><input id="q" placeholder="Masalani yozing…" value="yech x^2-5x+6=0"><button class="pri" onclick="solve()">Yechish ➜</button></div>
+<div class="row" style="margin-top:14px" id="chips"></div></div><div class="glass"><div id="out">Masalangiz kutilmoqda…</div><div class="ans" id="ans"></div></div></div></section>
+
+<section id="lab"><span class="tag">02 · Matematika laboratoriyasi</span><h2>Grafiklar <span class="grad">va geometriya</span></h2><p class="sub">Surish uchun sudrang, masshtab uchun gʻildirakni aylantiring, kuzatish uchun kursorni olib boring. Soʻng uchburchak uchlarini sudrab, geometriya jonli oʻzgarishini koʻring.</p>
+<div class="glass"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:12px"><input id="f1" value="sin(x)*x/2"><input id="f2" value="x^2/4-2"><input id="f3" value="cos(2x)"></div>
+<div class="row" style="margin-bottom:12px"><button onclick="zoom(.7)">＋ Yaqinlash</button><button onclick="zoom(1.4)">－ Uzoqlash</button><button onclick="vw={cx:0,cy:0,s:50};draw()">Tiklash</button><button onclick="pre('tan(x)','1/x','abs(x)-2')">Namuna A</button><button onclick="pre('exp(-x^2)*3','sqrt(abs(x))','sin(x)^2')">Namuna B</button><span id="tr" style="color:var(--b);font-family:monospace"></span></div>
+<canvas id="gc"></canvas></div>
+<div class="grid two" style="margin-top:18px"><div class="glass"><h3>Geometriya laboratoriyasi</h3><div class="row" style="margin:12px 0"><button id="bc" class="on" onclick="tg('cc')">Tashqi aylana</button><button id="bg" class="on" onclick="tg('cg')">Ogʻirlik markazi</button><button onclick="rndT()">Tasodifiy</button></div><canvas id="gg" width="600" height="380"></canvas></div><div class="glass"><h3>Jonli oʻlchovlar</h3><div id="gi" style="margin-top:14px;font-family:monospace;line-height:2"></div></div></div></section>
+
+<section id="explorer"><span class="tag">03 · 3D tadqiqotchi</span><h2>Sirtlar <span class="grad">uch oʻlchamda</span></h2><p class="sub">Shaklni aylantirish uchun sudrang. Three.js yordamida real vaqtda chizilgan klassik matematik sirtlar orasida almashing.</p>
+<div class="glass"><div class="row" id="sbt" style="margin-bottom:12px"></div><div class="row" style="margin-bottom:8px"><label>Tezlik</label><input type="range" id="sp" min="0" max="5" step=".1" value="1" style="width:200px"><button onclick="ex.auto=!ex.auto">⏯ Avto-aylanish</button><span id="sf" style="font-family:Georgia,serif;color:var(--b)"></span></div><canvas id="ec"></canvas></div></section>
+
+<section id="minds"><span class="tag">04 · Matematiklar</span><h2>Cheksizlikni <span class="grad">shakllantirgan zehnlar</span></h2><p class="sub">Hikoyasini oʻqish uchun kartani bosing.</p><div class="grid cards" id="mg"></div></section>
+<div id="modal" onclick="if(event.target==this)this.classList.remove('show')"><div class="glass" style="max-width:480px;background:#0d1030" id="mb"></div></div>
+
+<section id="challenges"><span class="tag">05 · Matematik musobaqalar</span><h2>Vaqtni <span class="grad">yenging</span></h2><p class="sub">Har safar yangi masalalar. Tezroq javob — koʻproq ball.</p>
+<div class="glass" style="max-width:720px"><div class="row" style="justify-content:space-between"><b>Ball <span id="sc">0</span></b><b>Seriya <span id="sk">0</span> 🔥</b><b>⏱ <span id="tm">0</span>s</b></div><div class="bar"><i id="pb"></i></div>
+<h3 id="cq" style="margin:18px 0"></h3><div class="row"><input id="ca" placeholder="Javobingiz" style="flex:1" onkeydown="if(event.key=='Enter')chk()"><button class="pri" onclick="chk()">Yuborish</button></div><div class="row" style="margin-top:12px"><button onclick="document.getElementById('cm').textContent='💡 '+cur.h">Maslahat</button><button onclick="nq()">Oʻtkazish</button></div><p id="cm" style="margin-top:12px;color:var(--m)"></p></div></section>
+
+<section id="formulas"><span class="tag">06 · Formulalar kutubxonasi</span><h2>Tenglamalar, <span class="grad">qoʻlingiz ostida</span></h2><p class="sub">Qidiring, filtrlang va nusxalash uchun formulani bosing.</p>
+<div class="row" style="margin-bottom:18px"><input id="fs" placeholder="Formulalarni qidirish…" style="max-width:320px" oninput="rf()"><span id="fch" class="row"></span></div><div class="grid cards" id="fg"></div></section>
+
+<section id="stats"><span class="tag">07 · Statistika va ehtimollik</span><h2>Tasodif, <span class="grad">simulyatsiyada</span></h2><p class="sub">Minglab tasodifiy tajribalarni oʻtkazing va katta sonlar qonuni qanday namoyon boʻlishini kuzating.</p>
+<div class="grid two"><div class="glass"><div class="row" style="margin-bottom:12px"><select id="sm" style="width:auto"><option value="coin">Tanga tashlash</option><option value="die">Bitta zar</option><option value="dice">Ikki zar (yigʻindi)</option><option value="norm">Normal taqsimot</option></select><select id="sn" style="width:auto"><option>100</option><option selected>1000</option><option>10000</option></select><button class="pri" onclick="sim()">▶ Ishga tushirish</button></div><div style="height:300px"><canvas id="ch"></canvas></div><p id="ss" style="color:var(--b);margin-top:10px;font-family:monospace"></p></div>
+<div class="glass"><h3>Monte Carlo π</h3><p style="color:var(--m);margin:6px 0 12px">Kvadrat ichiga tasodifiy otilgan nuqtalar π ni baholaydi.</p><canvas id="pc" width="320" height="320" style="border-radius:14px;background:rgba(0,0,0,.4);margin:auto"></canvas><div class="row" style="margin-top:12px"><button class="pri" onclick="mc(2000)">2000 ta otish</button><button onclick="mc0()">Tiklash</button><b id="pe" style="color:var(--c)">π ≈ ?</b></div></div></div></section>
+
+<section id="about"><span class="tag">08 · Loyiha haqida</span><h2>Qiziquvchanlar <span class="grad">uchun yaratilgan</span></h2><p class="sub">MATHVERSE mavhum matematikani qoʻl bilan ushlab koʻrsa boʻladigan narsaga aylantiradi. Barcha vositalar brauzeringizda bir zumda ishlaydi — roʻyxatdan oʻtish ham, kutish ham shart emas.</p>
+<div class="grid cards"><div class="glass rv"><h3>🧠 Aqlli</h3><p style="color:var(--m)">Har bir bosqichni tushuntiruvchi simvolik va sonli yechuvchi.</p></div><div class="glass rv"><h3>🌌 Immersiv</h3><p style="color:var(--m)">Real vaqtdagi 3D sirtlar va jonli formulalar.</p></div><div class="glass rv"><h3>⚡ Bir zumda</h3><p style="color:var(--m)">Hammasi mahalliy hisoblanadi, kechikishsiz.</p></div><div class="glass rv"><h3>🎓 Hamma uchun</h3><p style="color:var(--m)">Birinchi tenglamalardan universitet matematik tahliligacha.</p></div></div></section>
+
+<footer><div class="logo grad" style="font-size:1.6rem">∑ MATHVERSE</div><p>Raqamlar olamlarga aylanadigan joy.</p><div class="row"><input id="em" type="email" placeholder="you@email.com" style="max-width:280px"><button class="pri" onclick="sub()">Yangiliklarga obuna boʻlish</button></div><div class="row"><a class="btn" href="#solver">Yechuvchi</a><a class="btn" href="#lab">Laboratoriya</a><a class="btn" href="#challenges">Musobaqalar</a><button onclick="scrollTo({top:0})">↑ Tepaga</button></div><small>© 2026 MATHVERSE · Three.js, Chart.js va math.js bilan yaratilgan</small></footer>
+<div class="toast" id="toast"></div>
+
+<script src="./script.js"></script></body></html>
